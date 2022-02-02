@@ -1,43 +1,31 @@
 package hw1_2_2022;
 
-import java.io.File;
 import java.time.Duration;
-import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Task1 {
 
 	public static void main(String[] args) {
 		System.setProperty("webdriver.chrome.driver", "driver-lib/chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
-		driver.navigate().to("https://s.bootsnipp.com/iframe/Dq2X");
+		driver.navigate().to("https://www.udemy.com/courses/search/?src=ukw&q=slksd");
 		driver.manage().window().maximize();
-		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-		
-		List <WebElement> windows= driver.findElements(By.className("close"));
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
-		for (int i = 0; i < windows.size(); i++) {
-			windows.get(i).click();
-			try {
-				windows.get(i).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
-			} catch (Exception e) {
-				System.out.println("Closed");
-			}
-		}
+		driver.findElement(By.xpath("//*[contains (@class, 'language-selector-button--button--1wgoL')]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//*[contains (@class, 'modal--dialog--3wvl7 modal--default-size--PTjsn')]")));
+		System.out.println("Dialog showed");
 
+		driver.close();
 	}
 
 }
-
-//Napisati program koji:
-//Ucitava stranicu https://s.bootsnipp.com/iframe/Dq2X
-//Klikce na svaki iks da ugasi obavestenje i proverava da li se nakon klika element obrisao sa stranice i ispisuje odgovarajuce poruke (OVO JE POTREBNO RESITI KORISCENJEM PETLJE)
-//POMOC: Brisite elemente odozdo.
-//(ZA VEZBANJE)Probajte da resite da se elemementi brisu i odozgo
