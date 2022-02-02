@@ -25,6 +25,7 @@ public class Task1 {
 				By.xpath("//*[contains (@class, 'modal--dialog--3wvl7 modal--default-size--PTjsn')]")));
 		System.out.println("Dialog showed");
 
+		driver.close();
 	}
 
 }
