@@ -51,10 +51,12 @@ public class Task1 {
 		wait.until(ExpectedConditions.textToBePresentInElementValue(By.className("searchKeywordsInput"), "iphone"));
 		driver.findElement(By.className("searchButton")).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("priceSec")));
-		driver.findElement(By.className("choiceLabel")).click();
-		driver.findElement(By.xpath("//*[@id='menuGroup0']/div")).click();
 		driver.findElement(By.className("choiceLabelText")).click();
 		driver.findElement(By.xpath("//*[@value='eur']")).click();
+		driver.findElement(By.className("choiceLabel")).click();
+		driver.findElement(By.xpath("//*[@id='menuGroup0']/div")).click();
+		driver.findElement(By.name("submit[search]")).click();
+
 		
 		
 		List<WebElement> prices = driver.findElements(By.className("adPrice "));
@@ -67,6 +69,7 @@ public class Task1 {
 	}
 	
 	public boolean firstItemcheaper (List<WebElement> prices) {
+		prices = driver.findElements(By.className("adPrice "));
 		return Double.valueOf(prices.get(0).getText()) < Double.valueOf(prices.get(29).getText());
 	}
 	
