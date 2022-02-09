@@ -29,9 +29,11 @@ public class ProductPage {
 	}
 	
 	public void waitForMessage() {
-		wait.until(
-				ExpectedConditions
-				.numberOfElementsToBe(By.xpath("//*[@class='woocommerce-message']"), 1));
+			wait.until(
+					ExpectedConditions
+					.numberOfElementsToBe(By.xpath("//*[contains(text(), 'have beend added to your cart.']"), 1));
+		
+		
 	}
 	
 	public WebElement getViewCart () {
