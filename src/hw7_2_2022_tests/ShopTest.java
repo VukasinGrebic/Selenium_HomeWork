@@ -1,5 +1,4 @@
 package hw7_2_2022_tests;
-
 import java.io.File;
 
 import java.time.Duration;
@@ -13,36 +12,41 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import hw7_2_2022_pages.FormPage;
+import hw7_2_2022_pages.NavigationPage;
+import hw7_2_2022_pages.ProductPage;
 
-public class FormTest {
+public class ShopTest {
 	private WebDriver driver;
 	private WebDriverWait wait;
-	private FormPage fp;
+	private NavigationPage np;
+	private ProductPage pp;
 
 	@BeforeMethod
 	public void beforeMethod() {
 		System.setProperty("webdriver.chrome.driver", "driver-lib\\chromedriver.exe");
 		driver = new ChromeDriver();
-		fp = new FormPage(driver, wait);
+		np = new NavigationPage(driver);
+		pp = new ProductPage(driver, wait);
 		driver.manage().window().maximize();
 		this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		this.driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
-		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		File file = new File("file/form.html");
-		driver.get(file.getAbsolutePath());
+//		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+		driver.get("http://cms.demo.katalon.com/");
 	}
 
 	@Test
 	public void Form() {
-		fp.getNameInput().sendKeys("random");
-		fp.getRadioInput("male");
-		fp.getDateOfBirthInput().sendKeys("10.10.1910");
-		fp.getEmailInput().sendKeys("email@email.com");
-		fp.getRoleInput(1);
-		fp.getCheckBoxInput("read_books");
-		fp.getButton().click();
-		Assert.assertTrue(fp.waitForFormToBeSaved(), "Didn't save");
+		np.getShopButton().click();
+		pp.getProduct(1).click();
+		pp.getNumber().clear();
+		pp.getNumber().sendKeys("2");
+		pp.getAddCartButton().click();
+		pp.waitForMessage();
+		pp.getViewCart().click();
+		Assert.assertTrue(pp.enoughProducts(), "Didn't add 2");
+		pp.getRemoveButton().click();
+		Assert.assertTrue(pp.isDeleted(), "Didn't delete all");
 		
 
 	}
@@ -53,3 +57,4 @@ public class FormTest {
 	}
 
 }
+
