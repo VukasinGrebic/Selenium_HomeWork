@@ -3,13 +3,13 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="hw_4_2_2022.Task1">
+      <class name="hw7_2_2022_tests.FormTest">
         <methods>
+          <include name="Form"/>
           <include name="beforeMethod"/>
           <include name="afterMethod"/>
-          <include name="KupujemProdajem"/>
         </methods>
-      </class> <!-- hw_4_2_2022.Task1 -->
+      </class> <!-- hw7_2_2022_tests.FormTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
